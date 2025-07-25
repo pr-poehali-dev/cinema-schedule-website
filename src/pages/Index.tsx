@@ -8,7 +8,6 @@ import Icon from '@/components/ui/icon';
 interface Movie {
   id: number;
   title: string;
-  subtitle: string;
   ageRating: string;
   showtimes: string[];
   poster: string;
@@ -19,7 +18,6 @@ const movies: Movie[] = [
   {
     id: 1,
     title: "Супермен",
-    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["11:25", "14:50", "15:55", "18:15", "19:55", "21:50", "23:30"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000370/150373_68838c0648f575.63712540.webp",
@@ -28,7 +26,6 @@ const movies: Movie[] = [
   {
     id: 2,
     title: "Мир Юрского периода: Возрождение",
-    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["12:30", "15:55", "17:00", "18:10", "19:15", "21:30"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000372/150382_68839a177f0045.13347366.webp",
@@ -37,7 +34,6 @@ const movies: Movie[] = [
   {
     id: 3,
     title: "Как приручить дракона",
-    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["15:30", "18:05", "19:40", "21:25", "22:10"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000363/150386_68839a197b9355.14320741.webp",
@@ -46,7 +42,6 @@ const movies: Movie[] = [
   {
     id: 4,
     title: "Смурфики в кино",
-    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "6+",
     showtimes: ["10:15", "11:15", "12:25", "13:30"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000371/150379_68839a15253bc7.75263215.webp"
@@ -54,7 +49,6 @@ const movies: Movie[] = [
   {
     id: 5,
     title: "Формула 1",
-    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "16+",
     showtimes: ["12:40", "17:20", "22:15"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000369/150390_68839a1b4fbc62.23466555.webp",
@@ -63,7 +57,6 @@ const movies: Movie[] = [
   {
     id: 6,
     title: "Лило и Стич",
-    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "6+",
     showtimes: ["12:35", "15:00", "20:15"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000354/150394_68839a1d5305c2.63377399.webp",
@@ -72,7 +65,6 @@ const movies: Movie[] = [
   {
     id: 7,
     title: "Дюна 2",
-    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["19:30", "22:15"],
     poster: "https://i.postimg.cc/63mKWsC8/7.png"
@@ -84,42 +76,45 @@ export default function Index() {
 
   const MovieCard = ({ movie }: { movie: Movie }) => (
     <Card className="bg-gradient-to-b from-gray-800 to-black border-gray-700 overflow-hidden hover:scale-105 transition-transform duration-300">
-      <div className="relative group cursor-pointer">
-        <img 
-          src={movie.poster} 
-          alt={movie.title}
-          className="w-full h-96 object-cover"
-        />
-        <Badge className="absolute top-4 left-4 bg-orange-500 text-white font-bold">
-          {movie.ageRating}
-        </Badge>
-        {movie.trailer && (
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 my-0 px-[1px]">
-                <div className="p-4 hover:bg-orange-600 transition-colors rounded-full bg-[#ffffff] px-4 my-0 mx-0">
-                  <Icon name="Play" size={32} className="text-black ml-1" />
+      <div className="relative">
+        <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black/80 to-transparent">
+          <h3 className="text-white text-lg font-bold mb-1">{movie.title}</h3>
+          <Badge className="bg-orange-500 text-white font-bold">
+            {movie.ageRating}
+          </Badge>
+        </div>
+        <div className="relative group cursor-pointer">
+          <img 
+            src={movie.poster} 
+            alt={movie.title}
+            className="w-full h-[500px] object-cover"
+          />
+          {movie.trailer && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-orange-500 rounded-full p-4 hover:bg-orange-600 transition-colors">
+                    <Icon name="Play" size={32} className="text-black ml-1" />
+                  </div>
                 </div>
-              </div>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full p-0 bg-black border-gray-700">
-              <div className="relative pb-[56.25%] h-0">
-                <video 
-                  controls 
-                  autoPlay
-                  className="absolute top-0 left-0 w-full h-full rounded-lg"
-                  src={movie.trailer}
-                >
-                  Ваш браузер не поддерживает видео.
-                </video>
-              </div>
-            </DialogContent>
-          </Dialog>
-        )}
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl w-full p-0 bg-black border-gray-700">
+                <div className="relative pb-[56.25%] h-0">
+                  <video 
+                    controls 
+                    autoPlay
+                    className="absolute top-0 left-0 w-full h-full rounded-lg"
+                    src={movie.trailer}
+                  >
+                    Ваш браузер не поддерживает видео.
+                  </video>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+        </div>
       </div>
-      <CardContent className="p-6">
-        <h3 className="text-white text-2xl font-bold px-0 py-0 my-3 mx-0">{movie.title}</h3>
-        <p className="text-gray-400 text-sm mb-4">{movie.subtitle}</p>
+      <CardContent className="p-4">
         <div className="flex flex-wrap gap-2">
           {movie.showtimes.map((time, index) => (
             <Button
@@ -143,9 +138,7 @@ export default function Index() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="text-3xl font-bold text-orange-500">КИНО</div>
-              <div className="text-3xl font-bold text-white">СФЕРА</div>
-              <Badge className="bg-orange-500 text-black font-bold">IMAX</Badge>
+              <div className="text-3xl font-bold text-orange-500">Kinoimax</div>
             </div>
             <nav className="hidden md:flex space-x-8">
               {[
@@ -178,11 +171,31 @@ export default function Index() {
       {activeSection === 'movies' && (
         <main className="container mx-auto px-6 py-8">
           <div className="text-center mb-12">
-            <h1 className="text-5xl font-bold mb-4">
-              <span className="text-white">СЕЙЧАС В </span>
-              <span className="text-orange-500">КИНО</span>
+            <h1 className="text-white text-4xl md:text-6xl font-bold mb-8 text-center">
+              Kinoimax
             </h1>
-            <p className="text-gray-400 text-lg">Погрузитесь в мир кинематографа с технологией IMAX</p>
+            <div className="w-full max-w-4xl mx-auto bg-black rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative pb-[56.25%] h-0">
+                <video 
+                  controls 
+                  autoPlay
+                  muted
+                  loop
+                  className="absolute top-0 left-0 w-full h-full object-cover"
+                  src="blob:https://rutube.ru/ad83934a-fb8f-4ba1-b801-9e4e53af3db9"
+                >
+                  Ваш браузер не поддерживает видео.
+                </video>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">
+                    ФАНТАСТИЧЕСКАЯ ЧЕТВЕРКА
+                  </h2>
+                  <p className="text-orange-400 text-lg font-semibold">
+                    ПЕРВЫЕ ШАГИ - СКОРО В КИНО!
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -190,6 +203,36 @@ export default function Index() {
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </div>
+          
+          <section className="py-16 bg-gray-900 mt-16 rounded-2xl">
+            <div className="container mx-auto px-6">
+              <h2 className="text-white text-3xl font-bold mb-12 text-center">Акции и предложения</h2>
+              <div className="flex gap-6 overflow-x-auto pb-4">
+                {[
+                  {
+                    id: 1,
+                    image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image/799/150318_68837dfe7f2390.80494641.jpg"
+                  },
+                  {
+                    id: 2,
+                    image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/2/150313_68837dfbbdd083.86966329.webp"
+                  },
+                  {
+                    id: 3,
+                    image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/1072/150331_68837e03bf08e5.35652677.webp"
+                  }
+                ].map((promo) => (
+                  <div key={promo.id} className="flex-none">
+                    <img 
+                      src={promo.image} 
+                      alt={`Промо ${promo.id}`}
+                      className="w-80 h-60 object-cover rounded-[15px] hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </main>
       )}
 
@@ -326,11 +369,10 @@ export default function Index() {
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="text-2xl font-bold text-orange-500">КИНО</div>
-              <div className="text-2xl font-bold text-white">СФЕРА</div>
+              <div className="text-2xl font-bold text-orange-500">Kinoimax</div>
             </div>
             <div className="text-gray-400">
-              © 2024 КиноСфера IMAX. Все права защищены.
+              © 2024 Kinoimax. Все права защищены.
             </div>
           </div>
         </div>
