@@ -8,6 +8,7 @@ import Icon from '@/components/ui/icon';
 interface Movie {
   id: number;
   title: string;
+  subtitle: string;
   ageRating: string;
   showtimes: string[];
   poster: string;
@@ -18,6 +19,7 @@ const movies: Movie[] = [
   {
     id: 1,
     title: "Супермен",
+    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["11:25", "14:50", "15:55", "18:15", "19:55", "21:50", "23:30"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000370/150373_68838c0648f575.63712540.webp",
@@ -26,6 +28,7 @@ const movies: Movie[] = [
   {
     id: 2,
     title: "Мир Юрского периода: Возрождение",
+    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["12:30", "15:55", "17:00", "18:10", "19:15", "21:30"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000372/150382_68839a177f0045.13347366.webp",
@@ -34,6 +37,7 @@ const movies: Movie[] = [
   {
     id: 3,
     title: "Как приручить дракона",
+    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["15:30", "18:05", "19:40", "21:25", "22:10"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000363/150386_68839a197b9355.14320741.webp",
@@ -42,6 +46,7 @@ const movies: Movie[] = [
   {
     id: 4,
     title: "Смурфики в кино",
+    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "6+",
     showtimes: ["10:15", "11:15", "12:25", "13:30"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000371/150379_68839a15253bc7.75263215.webp"
@@ -49,6 +54,7 @@ const movies: Movie[] = [
   {
     id: 5,
     title: "Формула 1",
+    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "16+",
     showtimes: ["12:40", "17:20", "22:15"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000369/150390_68839a1b4fbc62.23466555.webp",
@@ -57,6 +63,7 @@ const movies: Movie[] = [
   {
     id: 6,
     title: "Лило и Стич",
+    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "6+",
     showtimes: ["12:35", "15:00", "20:15"],
     poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000354/150394_68839a1d5305c2.63377399.webp",
@@ -65,6 +72,7 @@ const movies: Movie[] = [
   {
     id: 7,
     title: "Дюна 2",
+    subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["19:30", "22:15"],
     poster: "https://i.postimg.cc/63mKWsC8/7.png"
@@ -73,12 +81,43 @@ const movies: Movie[] = [
 
 export default function Index() {
   const [activeSection, setActiveSection] = useState('movies');
+  const [currentPromo, setCurrentPromo] = useState(0);
+  
+  const promoImages = [
+    {
+      id: 1,
+      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image/799/150318_68837dfe7f2390.80494641.jpg"
+    },
+    {
+      id: 2,
+      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/2/150313_68837dfbbdd083.86966329.webp"
+    },
+    {
+      id: 3,
+      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/1072/150331_68837e03bf08e5.35652677.webp"
+    },
+    {
+      id: 4,
+      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/663/150327_68837e02174280.56036629.webp"
+    },
+    {
+      id: 5,
+      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/549/150305_68837df81aed28.52717003.webp"
+    }
+  ];
+  
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPromo((prev) => (prev + 1) % promoImages.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [promoImages.length]);
 
   const MovieCard = ({ movie }: { movie: Movie }) => (
     <Card className="bg-gradient-to-b from-gray-800 to-black border-gray-700 overflow-hidden hover:scale-105 transition-transform duration-300">
       <div className="relative">
-        <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black/80 to-transparent">
-          <h3 className="text-white text-lg font-bold mb-1">{movie.title}</h3>
+        <div className="absolute top-4 right-4 z-10">
           <Badge className="bg-orange-500 text-white font-bold">
             {movie.ageRating}
           </Badge>
@@ -115,6 +154,8 @@ export default function Index() {
         </div>
       </div>
       <CardContent className="p-4">
+        <h3 className="text-white text-xl font-bold mb-2">{movie.title}</h3>
+        <p className="text-gray-400 text-sm mb-4">{movie.subtitle}</p>
         <div className="flex flex-wrap gap-2">
           {movie.showtimes.map((time, index) => (
             <Button
@@ -207,29 +248,32 @@ export default function Index() {
           <section className="py-16 bg-gray-900 mt-16 rounded-2xl">
             <div className="container mx-auto px-6">
               <h2 className="text-white text-3xl font-bold mb-12 text-center">Акции и предложения</h2>
-              <div className="flex gap-6 overflow-x-auto pb-4">
-                {[
-                  {
-                    id: 1,
-                    image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image/799/150318_68837dfe7f2390.80494641.jpg"
-                  },
-                  {
-                    id: 2,
-                    image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/2/150313_68837dfbbdd083.86966329.webp"
-                  },
-                  {
-                    id: 3,
-                    image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/1072/150331_68837e03bf08e5.35652677.webp"
-                  }
-                ].map((promo) => (
-                  <div key={promo.id} className="flex-none">
-                    <img 
-                      src={promo.image} 
-                      alt={`Промо ${promo.id}`}
-                      className="w-80 h-60 object-cover rounded-[15px] hover:scale-105 transition-transform duration-300 cursor-pointer"
+              <div className="relative w-full h-80 overflow-hidden rounded-[15px]">
+                <div 
+                  className="flex transition-transform duration-500 ease-in-out h-full"
+                  style={{ transform: `translateX(-${currentPromo * 100}%)` }}
+                >
+                  {promoImages.map((promo) => (
+                    <div key={promo.id} className="w-full h-full flex-shrink-0">
+                      <img 
+                        src={promo.image} 
+                        alt={`Промо ${promo.id}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {promoImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentPromo(index)}
+                      className={`w-3 h-3 rounded-full transition-colors ${
+                        index === currentPromo ? 'bg-orange-500' : 'bg-white/50'
+                      }`}
                     />
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </section>
