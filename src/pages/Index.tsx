@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 
 interface Movie {
@@ -11,6 +12,7 @@ interface Movie {
   ageRating: string;
   showtimes: string[];
   poster: string;
+  trailer?: string;
 }
 
 const movies: Movie[] = [
@@ -20,7 +22,8 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["11:25", "14:50", "15:55", "18:15", "19:55", "21:50", "23:30"],
-    poster: "/img/90605c8e-8219-4180-aa6c-9e37c4638ece.jpg"
+    poster: "/img/90605c8e-8219-4180-aa6c-9e37c4638ece.jpg",
+    trailer: "https://media.cinemabox.team/net/c5/movies/1000000000370/trailer-supermen-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
     id: 2,
@@ -28,7 +31,8 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["12:30", "15:55", "17:00", "18:10", "19:15", "21:30"],
-    poster: "/img/cb4c60ef-9c80-463a-86cb-2c62a2cc7421.jpg"
+    poster: "/img/cb4c60ef-9c80-463a-86cb-2c62a2cc7421.jpg",
+    trailer: "https://media.cinemabox.team/net/c5/movies/1000000000372/trailer-mir-yurskogo-perioda-vozrozhdenie-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
     id: 3,
@@ -36,7 +40,8 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["15:30", "18:05", "19:40", "21:25", "22:10"],
-    poster: "/img/7066233a-51c7-42c3-80ae-9575b510e276.jpg"
+    poster: "/img/7066233a-51c7-42c3-80ae-9575b510e276.jpg",
+    trailer: "https://media.cinemabox.team/net/c5/movies/1000000000363/trailer-kak-priruchit-drakona-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
     id: 4,
@@ -52,7 +57,8 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "16+",
     showtimes: ["12:40", "17:20", "22:15"],
-    poster: "/img/cb4c60ef-9c80-463a-86cb-2c62a2cc7421.jpg"
+    poster: "/img/cb4c60ef-9c80-463a-86cb-2c62a2cc7421.jpg",
+    trailer: "https://media.cinemabox.team/net/c5/movies/1000000000369/trailer-formula-1-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
     id: 6,
@@ -60,7 +66,8 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "6+",
     showtimes: ["12:35", "15:00", "20:15"],
-    poster: "/img/7066233a-51c7-42c3-80ae-9575b510e276.jpg"
+    poster: "/img/7066233a-51c7-42c3-80ae-9575b510e276.jpg",
+    trailer: "https://media.cinemabox.team/net/c5/movies/1000000000354/trailer-lilo-i-stich-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
     id: 7,
@@ -77,7 +84,7 @@ export default function Index() {
 
   const MovieCard = ({ movie }: { movie: Movie }) => (
     <Card className="bg-gradient-to-b from-gray-800 to-black border-gray-700 overflow-hidden hover:scale-105 transition-transform duration-300">
-      <div className="relative">
+      <div className="relative group cursor-pointer">
         <img 
           src={movie.poster} 
           alt={movie.title}
@@ -89,11 +96,34 @@ export default function Index() {
         <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded text-sm font-bold">
           IMAX
         </div>
+        {movie.trailer && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="bg-orange-500 rounded-full p-4 hover:bg-orange-600 transition-colors">
+                  <Icon name="Play" size={32} className="text-black ml-1" />
+                </div>
+              </div>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-full p-0 bg-black border-gray-700">
+              <div className="relative pb-[56.25%] h-0">
+                <video 
+                  controls 
+                  autoPlay
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
+                  src={movie.trailer}
+                >
+                  Ваш браузер не поддерживает видео.
+                </video>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
       <CardContent className="p-6">
         <h3 className="text-white text-xl font-bold mb-2">{movie.title}</h3>
         <p className="text-gray-400 text-sm mb-4">{movie.subtitle}</p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mb-4">
           {movie.showtimes.map((time, index) => (
             <Button
               key={index}
@@ -105,6 +135,28 @@ export default function Index() {
             </Button>
           ))}
         </div>
+        {movie.trailer && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold">
+                <Icon name="Play" size={16} className="mr-2" />
+                Смотреть трейлер
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-full p-0 bg-black border-gray-700">
+              <div className="relative pb-[56.25%] h-0">
+                <video 
+                  controls 
+                  autoPlay
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
+                  src={movie.trailer}
+                >
+                  Ваш браузер не поддерживает видео.
+                </video>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
       </CardContent>
     </Card>
   );
