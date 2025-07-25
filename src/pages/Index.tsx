@@ -118,7 +118,7 @@ export default function Index() {
         )}
       </div>
       <CardContent className="p-6">
-        <h3 className="text-white text-xl font-bold mb-2">{movie.title}</h3>
+        <h3 className="text-white text-2xl font-bold px-0 py-0 my-3 mx-0">{movie.title}</h3>
         <p className="text-gray-400 text-sm mb-4">{movie.subtitle}</p>
         <div className="flex flex-wrap gap-2">
           {movie.showtimes.map((time, index) => (
