@@ -97,7 +97,7 @@ export default function Index() {
           <Dialog>
             <DialogTrigger asChild>
               <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 my-0 px-[1px]">
-                <div className="bg-orange-500 rounded-full p-4 hover:bg-orange-600 transition-colors">
+                <div className="p-4 hover:bg-orange-600 transition-colors rounded-full bg-[#ffffff] px-4 my-0 mx-0">
                   <Icon name="Play" size={32} className="text-black ml-1" />
                 </div>
               </div>
