@@ -22,7 +22,7 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["11:25", "14:50", "15:55", "18:15", "19:55", "21:50", "23:30"],
-    poster: "/img/90605c8e-8219-4180-aa6c-9e37c4638ece.jpg",
+    poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000370/150373_68838c0648f575.63712540.webp",
     trailer: "https://media.cinemabox.team/net/c5/movies/1000000000370/trailer-supermen-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
@@ -31,7 +31,7 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["12:30", "15:55", "17:00", "18:10", "19:15", "21:30"],
-    poster: "/img/cb4c60ef-9c80-463a-86cb-2c62a2cc7421.jpg",
+    poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000372/150382_68839a177f0045.13347366.webp",
     trailer: "https://media.cinemabox.team/net/c5/movies/1000000000372/trailer-mir-yurskogo-perioda-vozrozhdenie-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
@@ -40,7 +40,7 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["15:30", "18:05", "19:40", "21:25", "22:10"],
-    poster: "/img/7066233a-51c7-42c3-80ae-9575b510e276.jpg",
+    poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000363/150386_68839a197b9355.14320741.webp",
     trailer: "https://media.cinemabox.team/net/c5/movies/1000000000363/trailer-kak-priruchit-drakona-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
@@ -49,7 +49,7 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "6+",
     showtimes: ["10:15", "11:15", "12:25", "13:30"],
-    poster: "/img/90605c8e-8219-4180-aa6c-9e37c4638ece.jpg"
+    poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000371/150379_68839a15253bc7.75263215.webp"
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "16+",
     showtimes: ["12:40", "17:20", "22:15"],
-    poster: "/img/cb4c60ef-9c80-463a-86cb-2c62a2cc7421.jpg",
+    poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000369/150390_68839a1b4fbc62.23466555.webp",
     trailer: "https://media.cinemabox.team/net/c5/movies/1000000000369/trailer-formula-1-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
@@ -66,7 +66,7 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "6+",
     showtimes: ["12:35", "15:00", "20:15"],
-    poster: "/img/7066233a-51c7-42c3-80ae-9575b510e276.jpg",
+    poster: "https://kinosfera-baltika.ru/media_files/movies/vertical_poster_preview/1000000000354/150394_68839a1d5305c2.63377399.webp",
     trailer: "https://media.cinemabox.team/net/c5/movies/1000000000354/trailer-lilo-i-stich-predseans-obsl-kuda-ukhodyat-papy.mp4"
   },
   {
@@ -75,7 +75,7 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["19:30", "22:15"],
-    poster: "/img/90605c8e-8219-4180-aa6c-9e37c4638ece.jpg"
+    poster: "https://i.postimg.cc/63mKWsC8/7.png"
   }
 ];
 
@@ -88,14 +88,11 @@ export default function Index() {
         <img 
           src={movie.poster} 
           alt={movie.title}
-          className="w-full h-80 object-cover"
+          className="w-full h-96 object-cover"
         />
         <Badge className="absolute top-4 left-4 bg-orange-500 text-white font-bold">
           {movie.ageRating}
         </Badge>
-        <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded text-sm font-bold">
-          IMAX
-        </div>
         {movie.trailer && (
           <Dialog>
             <DialogTrigger asChild>
@@ -123,7 +120,7 @@ export default function Index() {
       <CardContent className="p-6">
         <h3 className="text-white text-xl font-bold mb-2">{movie.title}</h3>
         <p className="text-gray-400 text-sm mb-4">{movie.subtitle}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2">
           {movie.showtimes.map((time, index) => (
             <Button
               key={index}
@@ -135,28 +132,6 @@ export default function Index() {
             </Button>
           ))}
         </div>
-        {movie.trailer && (
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold">
-                <Icon name="Play" size={16} className="mr-2" />
-                Смотреть трейлер
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl w-full p-0 bg-black border-gray-700">
-              <div className="relative pb-[56.25%] h-0">
-                <video 
-                  controls 
-                  autoPlay
-                  className="absolute top-0 left-0 w-full h-full rounded-lg"
-                  src={movie.trailer}
-                >
-                  Ваш браузер не поддерживает видео.
-                </video>
-              </div>
-            </DialogContent>
-          </Dialog>
-        )}
       </CardContent>
     </Card>
   );
