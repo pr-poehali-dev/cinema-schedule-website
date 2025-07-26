@@ -90,26 +90,30 @@ export default function Index() {
     },
     {
       id: 2,
-      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/2/150313_68837dfbbdd083.86966329.webp"
+      image: "https://i.postimg.cc/zBtDPt7k/arx3qmwq-UN5s3ecocm-Ez.png"
     },
     {
       id: 3,
-      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/1072/150331_68837e03bf08e5.35652677.webp"
+      image: "https://i.postimg.cc/cJD6VL4Y/Digital-68845612345678910111213141516.png"
     },
     {
       id: 4,
-      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/663/150327_68837e02174280.56036629.webp"
+      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/00/00/owIuqICA0YWOaFCLTxRm.jpg.webp"
     },
     {
       id: 5,
       image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/549/150305_68837df81aed28.52717003.webp"
+    },
+    {
+      id: 6,
+      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/00/00/owIuqICA0YWOaFCLTxRm.jpg.webp"
     }
   ];
   
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentPromo((prev) => (prev + 1) % promoImages.length);
-    }, 3000);
+      setCurrentPromo((prev) => (prev + 1) % Math.ceil(promoImages.length / 3));
+    }, 7000);
     
     return () => clearInterval(interval);
   }, [promoImages.length]);
@@ -126,7 +130,7 @@ export default function Index() {
           <img 
             src={movie.poster} 
             alt={movie.title}
-            className="w-full h-[500px] object-cover"
+            className="w-full h-[520px] object-cover"
           />
           {movie.trailer && (
             <Dialog>
@@ -218,12 +222,11 @@ export default function Index() {
             <div className="w-full max-w-4xl mx-auto bg-black rounded-2xl overflow-hidden shadow-2xl">
               <div className="relative pb-[56.25%] h-0">
                 <video 
-                  controls 
                   autoPlay
                   muted
                   loop
                   className="absolute top-0 left-0 w-full h-full object-cover"
-                  src="blob:https://rutube.ru/ad83934a-fb8f-4ba1-b801-9e4e53af3db9"
+                  src="https://pouch.jumpshare.com/preview/Ekh3IXUP7ezfDziYJVwlg11P2FUfGvtv0Unf1ql6blRWTlCKZhi9h2m-e00MupXFn99XNvD9hUZyS3llVG70LENQZlFeOTmw1m1_FfJDSBw"
                 >
                   Ваш браузер не поддерживает видео.
                 </video>
@@ -253,18 +256,22 @@ export default function Index() {
                   className="flex transition-transform duration-500 ease-in-out h-full"
                   style={{ transform: `translateX(-${currentPromo * 100}%)` }}
                 >
-                  {promoImages.map((promo) => (
-                    <div key={promo.id} className="w-full h-full flex-shrink-0">
-                      <img 
-                        src={promo.image} 
-                        alt={`Промо ${promo.id}`}
-                        className="w-full h-full object-cover"
-                      />
+                  {Array.from({ length: Math.ceil(promoImages.length / 3) }).map((_, slideIndex) => (
+                    <div key={slideIndex} className="w-full h-full flex-shrink-0 flex gap-4">
+                      {promoImages.slice(slideIndex * 3, (slideIndex + 1) * 3).map((promo) => (
+                        <div key={promo.id} className="flex-1 h-full">
+                          <img 
+                            src={promo.image} 
+                            alt={`Промо ${promo.id}`}
+                            className="w-full h-full object-cover rounded-[15px]"
+                          />
+                        </div>
+                      ))}
                     </div>
                   ))}
                 </div>
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                  {promoImages.map((_, index) => (
+                  {Array.from({ length: Math.ceil(promoImages.length / 3) }).map((_, index) => (
                     <button
                       key={index}
                       onClick={() => setCurrentPromo(index)}
