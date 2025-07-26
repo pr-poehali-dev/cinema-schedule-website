@@ -231,9 +231,7 @@ export default function Index() {
               <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">
                 ФАНТАСТИЧЕСКАЯ ЧЕТВЕРКА
               </h2>
-              <p className="text-orange-400 text-lg md:text-xl font-semibold">
-                ПЕРВЫЕ ШАГИ - СКОРО В КИНО!
-              </p>
+              <p className="text-orange-400 text-lg md:text-xl font-semibold"> УЖЕ В КИНО!</p>
             </div>
           </div>
 
