@@ -231,10 +231,10 @@ export default function Index() {
                   Ваш браузер не поддерживает видео.
                 </video>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">
+                  <h2 className="text-white md:text-4xl font-bold mb-2 text-5xl">
                     ФАНТАСТИЧЕСКАЯ ЧЕТВЕРКА
                   </h2>
-                  <p className="text-orange-400 text-lg font-semibold">
+                  <p className="text-orange-400 text-4xl font-bold">
                     ПЕРВЫЕ ШАГИ - СКОРО В КИНО!
                   </p>
                 </div>
