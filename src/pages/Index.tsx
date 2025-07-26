@@ -219,7 +219,7 @@ export default function Index() {
               muted
               loop
               className="absolute top-0 left-0 w-full h-full object-cover"
-              src="https://pouch.jumpshare.com/preview/Ekh3IXUP7ezfDziYJVwlg11P2FUfGvtv0Unf1ql6blRWTlCKZhi9h2m-e00MupXFn99XNvD9hUZyS3llVG70LENQZlFeOTmw1m1_FfJDSBw"
+              src="https://media.cinemabox.team/net/c5/movies/1000000000363/trailer-kak-priruchit-drakona-predseans-obsl-kuda-ukhodyat-papy.mp4"
             >
               Ваш браузер не поддерживает видео.
             </video>
