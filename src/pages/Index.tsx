@@ -228,9 +228,7 @@ export default function Index() {
               <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
                 Kinoimax
               </h1>
-              <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">
-                ФАНТАСТИЧЕСКАЯ ЧЕТВЕРКА
-              </h2>
+              <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">КАК ПРИУЧИТЬ ДРАКОНА</h2>
               <p className="text-orange-400 text-lg md:text-xl font-semibold"> УЖЕ В КИНО!</p>
             </div>
           </div>
