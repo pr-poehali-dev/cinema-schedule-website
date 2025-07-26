@@ -75,48 +75,45 @@ const movies: Movie[] = [
     subtitle: "предсеанс. обсл. & Куда уходят папы?",
     ageRating: "12+",
     showtimes: ["19:30", "22:15"],
-    poster: "https://i.postimg.cc/63mKWsC8/7.png"
+    poster: "https://i.postimg.cc/63mKWsC8/7.png",
+    trailer: "https://pouch.jumpshare.com/preview/A9COoiJO45gDCIi32v65KMTwCNaf2zo6pwn7nBouxyX9H56fK9b2iMRCxGBGDYwOlNjr3qz-0DoD-S77CF5Zd18ntVF4W1Y4i7BDRNRueLk"
   }
 ];
 
 export default function Index() {
   const [activeSection, setActiveSection] = useState('movies');
-  const [currentPromo, setCurrentPromo] = useState(0);
+  const [showSeatMap, setShowSeatMap] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState<string>('');
+  const [selectedTime, setSelectedTime] = useState<string>('');
   
-  const promoImages = [
+  const promotionImages = [
     {
       id: 1,
-      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image/799/150318_68837dfe7f2390.80494641.jpg"
+      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/00/00/arx3qmwqUN5s3ecocmEz.jpg.webp",
+      title: "Специальное предложение"
     },
     {
       id: 2,
-      image: "https://i.postimg.cc/zBtDPt7k/arx3qmwq-UN5s3ecocm-Ez.png"
+      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/06/19/AQFcQO7GBxwmO79Ucamm.jpg.webp",
+      title: "Комбо набор"
     },
     {
       id: 3,
-      image: "https://i.postimg.cc/cJD6VL4Y/Digital-68845612345678910111213141516.png"
+      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/00/00/KxSlBf6A1fvWCXWcOMRy.jpg.webp",
+      title: "Акция для студентов"
     },
     {
       id: 4,
-      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/00/00/owIuqICA0YWOaFCLTxRm.jpg.webp"
-    },
-    {
-      id: 5,
-      image: "https://kinosfera-baltika.ru/media_files/adv_promotions/image_preview/549/150305_68837df81aed28.52717003.webp"
-    },
-    {
-      id: 6,
-      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/00/00/owIuqICA0YWOaFCLTxRm.jpg.webp"
+      image: "https://s3.kinoteatr.ru/preview41/upload/a1/00/00/00/00/_Digital_68845612345678910111213141516.jpg.webp",
+      title: "Цифровое кино"
     }
   ];
   
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPromo((prev) => (prev + 1) % Math.ceil(promoImages.length / 3));
-    }, 7000);
-    
-    return () => clearInterval(interval);
-  }, [promoImages.length]);
+  const handleTimeClick = (movieTitle: string, time: string) => {
+    setSelectedMovie(movieTitle);
+    setSelectedTime(time);
+    setShowSeatMap(true);
+  };
 
   const MovieCard = ({ movie }: { movie: Movie }) => (
     <Card className="bg-gradient-to-b from-gray-800 to-black border-gray-700 overflow-hidden hover:scale-105 transition-transform duration-300">
@@ -130,7 +127,7 @@ export default function Index() {
           <img 
             src={movie.poster} 
             alt={movie.title}
-            className="w-full h-[520px] object-cover"
+            className="w-full h-[480px] object-cover"
           />
           {movie.trailer && (
             <Dialog>
@@ -167,6 +164,7 @@ export default function Index() {
               variant="outline"
               size="sm"
               className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-black"
+              onClick={() => handleTimeClick(movie.title, time)}
             >
               {time}
             </Button>
@@ -215,30 +213,27 @@ export default function Index() {
       {/* Movies Section */}
       {activeSection === 'movies' && (
         <main className="container mx-auto px-6 py-8">
-          <div className="text-center mb-12">
-            <h1 className="text-white text-4xl md:text-6xl font-bold mb-8 text-center">
-              Kinoimax
-            </h1>
-            <div className="w-full max-w-4xl mx-auto bg-black rounded-2xl overflow-hidden shadow-2xl">
-              <div className="relative pb-[56.25%] h-0">
-                <video 
-                  autoPlay
-                  muted
-                  loop
-                  className="absolute top-0 left-0 w-full h-full object-cover"
-                  src="https://pouch.jumpshare.com/preview/Ekh3IXUP7ezfDziYJVwlg11P2FUfGvtv0Unf1ql6blRWTlCKZhi9h2m-e00MupXFn99XNvD9hUZyS3llVG70LENQZlFeOTmw1m1_FfJDSBw"
-                >
-                  Ваш браузер не поддерживает видео.
-                </video>
-                <div className="absolute bottom-6 left-6 right-6">
-                  <h2 className="text-white md:text-4xl font-bold mb-2 text-5xl">
-                    ФАНТАСТИЧЕСКАЯ ЧЕТВЕРКА
-                  </h2>
-                  <p className="text-orange-400 text-4xl font-bold">
-                    ПЕРВЫЕ ШАГИ - СКОРО В КИНО!
-                  </p>
-                </div>
-              </div>
+          <div className="relative w-full h-screen mb-12">
+            <video 
+              autoPlay
+              muted
+              loop
+              className="absolute top-0 left-0 w-full h-full object-cover"
+              src="https://pouch.jumpshare.com/preview/Ekh3IXUP7ezfDziYJVwlg11P2FUfGvtv0Unf1ql6blRWTlCKZhi9h2m-e00MupXFn99XNvD9hUZyS3llVG70LENQZlFeOTmw1m1_FfJDSBw"
+            >
+              Ваш браузер не поддерживает видео.
+            </video>
+            <div className="absolute inset-0 bg-black/30"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+              <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
+                Kinoimax
+              </h1>
+              <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">
+                ФАНТАСТИЧЕСКАЯ ЧЕТВЕРКА
+              </h2>
+              <p className="text-orange-400 text-lg md:text-xl font-semibold">
+                ПЕРВЫЕ ШАГИ - СКОРО В КИНО!
+              </p>
             </div>
           </div>
 
@@ -247,43 +242,6 @@ export default function Index() {
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </div>
-          
-          <section className="py-16 bg-gray-900 mt-16 rounded-2xl">
-            <div className="container mx-auto px-6">
-              <h2 className="text-white text-3xl font-bold mb-12 text-center">Акции и предложения</h2>
-              <div className="relative w-full h-80 overflow-hidden rounded-[15px]">
-                <div 
-                  className="flex transition-transform duration-500 ease-in-out h-full"
-                  style={{ transform: `translateX(-${currentPromo * 100}%)` }}
-                >
-                  {Array.from({ length: Math.ceil(promoImages.length / 3) }).map((_, slideIndex) => (
-                    <div key={slideIndex} className="w-full h-full flex-shrink-0 flex gap-4">
-                      {promoImages.slice(slideIndex * 3, (slideIndex + 1) * 3).map((promo) => (
-                        <div key={promo.id} className="flex-1 h-full">
-                          <img 
-                            src={promo.image} 
-                            alt={`Промо ${promo.id}`}
-                            className="w-full h-full object-cover rounded-[15px]"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                  {Array.from({ length: Math.ceil(promoImages.length / 3) }).map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentPromo(index)}
-                      className={`w-3 h-3 rounded-full transition-colors ${
-                        index === currentPromo ? 'bg-orange-500' : 'bg-white/50'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
         </main>
       )}
 
@@ -294,24 +252,26 @@ export default function Index() {
             <span className="text-orange-500">АКЦИИ</span> И ПРЕДЛОЖЕНИЯ
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-gradient-to-r from-orange-500 to-red-600 border-none">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">🎬 Студенческие билеты</h3>
-                <p className="text-lg mb-4">Скидка 50% для студентов в будние дни до 17:00</p>
-                <Button className="bg-black text-white hover:bg-gray-800">
-                  Подробнее
-                </Button>
-              </CardContent>
-            </Card>
-            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 border-none">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">🍿 Комбо предложения</h3>
-                <p className="text-lg mb-4">Попкорн + напиток + билет со скидкой 30%</p>
-                <Button className="bg-black text-white hover:bg-gray-800">
-                  Заказать
-                </Button>
-              </CardContent>
-            </Card>
+            {promotionImages.map((promo) => (
+              <Card key={promo.id} className="bg-gradient-to-b from-gray-800 to-black border-gray-700 overflow-hidden hover:scale-105 transition-transform duration-300">
+                <div className="relative">
+                  <img 
+                    src={promo.image} 
+                    alt={promo.title}
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-white text-xl font-bold">{promo.title}</h3>
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold">
+                    Подробнее
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </main>
       )}
@@ -413,6 +373,79 @@ export default function Index() {
             </Card>
           </div>
         </main>
+      )}
+
+      {/* Seat Map Modal */}
+      {showSeatMap && (
+        <Dialog open={showSeatMap} onOpenChange={setShowSeatMap}>
+          <DialogContent className="max-w-4xl w-full bg-black border-gray-700">
+            <div className="p-6">
+              <h2 className="text-white text-2xl font-bold mb-4">
+                {selectedMovie} - {selectedTime}
+              </h2>
+              <div className="bg-gray-800 rounded-lg p-6 mb-6">
+                <div className="text-center mb-6">
+                  <div className="bg-orange-500 text-black px-4 py-2 rounded mb-4 inline-block font-bold">
+                    ЭКРАН
+                  </div>
+                </div>
+                <div className="grid grid-cols-12 gap-1 max-w-2xl mx-auto">
+                  {Array.from({ length: 120 }).map((_, index) => {
+                    const row = Math.floor(index / 12) + 1;
+                    const seat = (index % 12) + 1;
+                    const isOccupied = Math.random() > 0.7;
+                    const isSelected = Math.random() > 0.9;
+                    
+                    return (
+                      <button
+                        key={index}
+                        className={`w-8 h-8 rounded text-xs font-bold transition-colors ${
+                          isOccupied 
+                            ? 'bg-red-500 text-white cursor-not-allowed' 
+                            : isSelected 
+                            ? 'bg-orange-500 text-black' 
+                            : 'bg-gray-600 text-white hover:bg-gray-500'
+                        }`}
+                        disabled={isOccupied}
+                        title={`Ряд ${row}, Место ${seat}`}
+                      >
+                        {seat}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="flex justify-center gap-6 mt-6 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-gray-600 rounded"></div>
+                    <span className="text-white">Свободно</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-orange-500 rounded"></div>
+                    <span className="text-white">Выбрано</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-red-500 rounded"></div>
+                    <span className="text-white">Занято</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="text-white">
+                  <p>Выбрано мест: 2</p>
+                  <p className="text-orange-400 font-bold">Итого: 800 ₽</p>
+                </div>
+                <div className="space-x-4">
+                  <Button variant="outline" onClick={() => setShowSeatMap(false)}>
+                    Отмена
+                  </Button>
+                  <Button className="bg-orange-500 hover:bg-orange-600 text-black font-bold">
+                    Купить билеты
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       )}
 
       {/* Footer */}
